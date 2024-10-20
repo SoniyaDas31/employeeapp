@@ -1,0 +1,23 @@
+{
+  "name": "employeeapp",
+  "version": "1.0.1",
+  "description": "Employee app Backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "App Running"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoniyaDas31/employeeapp.git"
+  },
+  "author": "Subbulakshmi Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoniyaDas31/employeeapp/issues"
+  },
+  "homepage": "https://github.com/SoniyaDas31/employeeapp#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.7.2"
+  }
+}
