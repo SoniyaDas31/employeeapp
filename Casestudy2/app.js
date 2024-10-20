@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = 3000;
+const ObjectID = require('mongodb').ObjectID;
+const BSON = require('bson');
 
 app.listen(PORT, ()=>{
     console.log(`Server Listening at Port ${PORT}`);
@@ -73,24 +75,28 @@ router.get('/employeelist', async(req, res) => {
 
 router.get('/employeelist/:id', async(req, res) => {
      //res.send(`get id ${req.params.id}`);
-    let queryString = "_id:ObjectId('"+req.params.id+"')";
-    let queryString2 = "{'name': '"+req.params.id+"'}";
+    //let queryString = {_id:ObjectId(req.params.id)};
+    let id = req.params.id;
+    const nid = new BSON.ObjectId(id);
+   // let queryString = {_id:'6714cb6e420bb225acc430e9'};
+    //let queryString2 = "{'name': '"+req.params.id+"'}";
     // res.send(queryString2);
+    //console.log(queryString);
    
      try{
          const client = await MongoClient.connect(dbConnection);
          const coll = client.db('employee_details').collection('employee_list');
-         const cursor = coll.find(queryString);
-        // console.log(cursor);
-         const result = await cursor.toArray();
+         const cursor = coll.findOne({_id: nid});
+         console.log(cursor);
+         const result = cursor.toArray();
          console.log(result);
          await client.close();
-         res.json(cursor);
-         
+         res.json(result);
  
      }
      catch(error){
          res.status(500).json({message: error.message})
+         
      }
  })
 
